@@ -24,6 +24,13 @@ class Graph {
         adjList.get(dest).add(new Edge(src, weight));
     }
 
+    public void addEdgeh(int src, int dest, int weight, int heu) {
+        adjList.putIfAbsent(src, new ArrayList<>());
+        adjList.get(src).add(new Edge(dest, weight, heu));
+        // even though this is an undirected graph, the heuristic value changes based
+        // on the direction so we can't add an edge from dest --> src
+    }
+
     // Function to get the adjacency list
     public Map<Integer, List<Edge>> getAdjList() {
         return adjList;
@@ -107,18 +114,58 @@ class Graph {
         costSoFar.put(start, 0);
         cameFrom.put(start, null);
 
+        frontier_search:
         while(!frontier.isEmpty()) {
             var edge = frontier.poll();
+            System.out.println("Looking at " + edge.dest);
             for(var e : adjList.get(edge.dest)) {
                 var totalCost = costSoFar.get(edge.dest) + e.weight;
                 if(costSoFar.getOrDefault(e.dest, Integer.MAX_VALUE) > totalCost) {
                     costSoFar.put(e.dest, totalCost);
                     cameFrom.put(e.dest, edge.dest);
-                    frontier.add(e);
+                    frontier.add(new Edge(e.dest, totalCost));
+                }
+                if(edge.dest == end) {
+                    System.out.println("ending early");
+                    break frontier_search;
                 }
             }
         }
 
+        printPath(start, end, cameFrom);
+    }
+
+    public void astar(int start, int end) {
+        var frontier = new PriorityQueue<>(new HeuristicComparator());
+        var costSoFar = new HashMap<Integer, Integer>();
+        var cameFrom = new HashMap<Integer, Integer>();
+
+        frontier.add(new Edge(start, 0));
+        costSoFar.put(start, 0);
+        cameFrom.put(start, null);
+
+        frontier_search:
+        while(!frontier.isEmpty()) {
+            var edge = frontier.poll();
+            System.out.println("Looking at " + edge.dest);
+            for(var e : adjList.get(edge.dest)) {
+                var totalCost = costSoFar.get(edge.dest) + e.weight;
+                if(costSoFar.getOrDefault(e.dest, Integer.MAX_VALUE) > totalCost) {
+                    costSoFar.put(e.dest, totalCost);
+                    cameFrom.put(e.dest, edge.dest);
+                    frontier.add(new Edge(e.dest, totalCost, e.heuristic));
+                }
+                if(edge.dest == end) {
+                    System.out.println("ending early");
+                    break frontier_search;
+                }
+            }
+        }
+
+        printPath(start, end, cameFrom);
+    }
+
+    private static void printPath(int start, int end, HashMap<Integer, Integer> cameFrom) {
         var path = new Stack<Integer>();
         var l = end;
         while (l != start) {
@@ -126,7 +173,10 @@ class Graph {
             l = cameFrom.get(l);
         }
         path.push(l);
-
-        System.out.println(path);
+        var revpath = new ArrayList<Integer>();
+        while(!path.isEmpty()) {
+            revpath.add(path.pop());
+        }
+        System.out.println(revpath);
     }
 }
