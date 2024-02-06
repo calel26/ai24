@@ -1,8 +1,11 @@
 package com.lawsmat.graph;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
+import java.util.function.Function;
 
-class Graph {
+public class Graph {
     // HashMap to store the adjacency list
     HashMap<Integer, List<Edge>> adjList;
 
@@ -16,12 +19,7 @@ class Graph {
         // Add edge from src to dest
         //putIfAbsent is used to check if a list of edges already exists for a given node (key).
         //If not, it initializes a new list for that node:
-        adjList.putIfAbsent(src, new ArrayList<>());
-        adjList.get(src).add(new Edge(dest, weight));
-
-        // Since it's an undirected graph, add an edge from dest to src as well
-        adjList.putIfAbsent(dest, new ArrayList<>());
-        adjList.get(dest).add(new Edge(src, weight));
+        addEdge(src, new Edge(dest, weight));
     }
 
     public void addEdgeh(int src, int dest, int weight, int heu) {
@@ -29,6 +27,14 @@ class Graph {
         adjList.get(src).add(new Edge(dest, weight, heu));
         // even though this is an undirected graph, the heuristic value changes based
         // on the direction so we can't add an edge from dest --> src
+    }
+
+    public void addEdge(int src, Edge e) {
+        adjList.putIfAbsent(src, new ArrayList<>());
+        adjList.get(src).add(e);
+        var otherWay = e.inverse(src);
+        adjList.putIfAbsent(e.dest, new ArrayList<>());
+        adjList.get(e.dest).add(otherWay);
     }
 
     // Function to get the adjacency list
@@ -135,12 +141,16 @@ class Graph {
         printPath(start, end, cameFrom);
     }
 
-    public void astar(int start, int end) {
-        var frontier = new PriorityQueue<>(new HeuristicComparator());
+    public ArrayList<Integer> astar(int start, int end) {
+        return astar(start, end, (e) -> e.heuristic, null);
+    }
+
+    public ArrayList<Integer> astar(int start, int end, Function<Edge, Integer> heuy, Point pt) {
+        var frontier = new PriorityQueue<>(new HeuristicComparator(heuy));
         var costSoFar = new HashMap<Integer, Integer>();
         var cameFrom = new HashMap<Integer, Integer>();
 
-        frontier.add(new Edge(start, 0));
+        frontier.add(new Edge(start, 0, 0, pt));
         costSoFar.put(start, 0);
         cameFrom.put(start, null);
 
@@ -153,7 +163,7 @@ class Graph {
                 if(costSoFar.getOrDefault(e.dest, Integer.MAX_VALUE) > totalCost) {
                     costSoFar.put(e.dest, totalCost);
                     cameFrom.put(e.dest, edge.dest);
-                    frontier.add(new Edge(e.dest, totalCost, e.heuristic));
+                    frontier.add(new Edge(e.dest, totalCost, e.heuristic, e.point));
                 }
                 if(edge.dest == end) {
                     System.out.println("ending early");
@@ -162,10 +172,10 @@ class Graph {
             }
         }
 
-        printPath(start, end, cameFrom);
+        return printPath(start, end, cameFrom);
     }
 
-    private static void printPath(int start, int end, HashMap<Integer, Integer> cameFrom) {
+    private static ArrayList<Integer> printPath(int start, int end, HashMap<Integer, Integer> cameFrom) {
         var path = new Stack<Integer>();
         var l = end;
         while (l != start) {
@@ -178,5 +188,6 @@ class Graph {
             revpath.add(path.pop());
         }
         System.out.println(revpath);
+        return revpath;
     }
 }

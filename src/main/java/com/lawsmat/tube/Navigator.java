@@ -1,6 +1,7 @@
 package com.lawsmat.tube;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Navigator {
     private final Network n;
@@ -16,14 +17,18 @@ public class Navigator {
         steps = 0;
     }
 
+    private String p(ArrayList<Station> s) {
+        return s.stream().map(Station::name).collect(Collectors.joining(", "));
+    }
+
     public void navigate(Station from, Station to) {
-        System.out.println("A* Path=" + astar(from, to));
+        System.out.println("A* Path=" + p(astar(from, to)));
         results();
-        System.out.println("UCS Path=" + ucs(from, to));
+        System.out.println("UCS Path=" + p(ucs(from, to)));
         results();
-        System.out.println("BFS Path=" + bfs(from, to));
+        System.out.println("BFS Path=" + p(bfs(from, to)));
         results();
-        System.out.println("DFS Path=" + dfs(from, to));
+        System.out.println("DFS Path=" + p(dfs(from, to)));
         results();
     }
 
@@ -84,6 +89,7 @@ public class Navigator {
             for(var edge : n.getTunnels(cur)) {
                 if(!seen.contains(edge.to())) {
                     stack.push(edge.to());
+                    cost += edge.length();
                 }
             }
         }
@@ -117,6 +123,7 @@ public class Navigator {
                     queue.add(edge.to());
                     var p = (ArrayList<Station>) path.clone();
                     p.add(edge.to());
+                    cost += edge.length();
                     paths.add(p);
                 }
             }
