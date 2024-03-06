@@ -77,7 +77,7 @@ while True:
 
         transparentOverlay(frame, sunglasses, pos=(
             int(sx - (width/2)*scale_factor),
-            int(sy-(height/2)*scale_factor)),
+            int(sy - (height/2)*scale_factor)),
                            scale=scale_factor)
 
     # Display the resulting frame
