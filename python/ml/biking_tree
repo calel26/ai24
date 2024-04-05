@@ -24,10 +24,10 @@ edge [fontname="helvetica"] ;
 9 -> 10 ;
 11 [label=<node &#35;11<br/>gini = 0.477<br/>samples = 21.8%<br/>value = [0.393, 0.607]<br/>class = big biking day>, fillcolor="#b9ddf6"] ;
 9 -> 11 ;
-12 [label=<node &#35;12<br/>t2 &le; 6.75<br/>gini = 0.427<br/>samples = 34.0%<br/>value = [0.691, 0.309]<br/>class = not many bikes>, fillcolor="#f1b992"] ;
+12 [label=<node &#35;12<br/>is_day_off &le; 0.5<br/>gini = 0.427<br/>samples = 34.0%<br/>value = [0.691, 0.309]<br/>class = not many bikes>, fillcolor="#f1b992"] ;
 8 -> 12 ;
-13 [label=<node &#35;13<br/>gini = 0.353<br/>samples = 12.4%<br/>value = [0.771, 0.229]<br/>class = not many bikes>, fillcolor="#eda674"] ;
+13 [label=<node &#35;13<br/>gini = 0.464<br/>samples = 22.7%<br/>value = [0.634, 0.366]<br/>class = not many bikes>, fillcolor="#f4caab"] ;
 12 -> 13 ;
-14 [label=<node &#35;14<br/>gini = 0.458<br/>samples = 21.6%<br/>value = [0.644, 0.356]<br/>class = not many bikes>, fillcolor="#f3c7a6"] ;
+14 [label=<node &#35;14<br/>gini = 0.313<br/>samples = 11.3%<br/>value = [0.806, 0.194]<br/>class = not many bikes>, fillcolor="#eb9f69"] ;
 12 -> 14 ;
 }

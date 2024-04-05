@@ -41,7 +41,7 @@ df = df.dropna()
 
 mean_bikes = df["cnt"].mean() * 0.6
 above = df["cnt"] > mean_bikes
-is_day_off = (df["is_holiday"] == 1) & (df["is_weekend"] == 1)
+is_day_off = (df["is_holiday"] == 1) | (df["is_weekend"] == 1)
 df["is_day_off"] = is_day_off
 
 # Define features and target variables
