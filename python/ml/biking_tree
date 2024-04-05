@@ -1,0 +1,33 @@
+digraph Tree {
+node [shape=box, style="filled, rounded", color="black", fontname="helvetica"] ;
+edge [fontname="helvetica"] ;
+0 [label=<node &#35;0<br/>hum &le; 66.75<br/>gini = 0.491<br/>samples = 100.0%<br/>value = [0.433, 0.567]<br/>class = big biking day>, fillcolor="#d0e8f9"] ;
+1 [label=<node &#35;1<br/>hum &le; 58.75<br/>gini = 0.205<br/>samples = 31.8%<br/>value = [0.116, 0.884]<br/>class = big biking day>, fillcolor="#53aae8"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label=<node &#35;2<br/>t2 &le; -1.75<br/>gini = 0.07<br/>samples = 18.2%<br/>value = [0.037, 0.963]<br/>class = big biking day>, fillcolor="#41a1e6"] ;
+1 -> 2 ;
+3 [label=<node &#35;3<br/>gini = 0.278<br/>samples = 0.0%<br/>value = [0.833, 0.167]<br/>class = not many bikes>, fillcolor="#ea9a61"] ;
+2 -> 3 ;
+4 [label=<node &#35;4<br/>gini = 0.067<br/>samples = 18.2%<br/>value = [0.035, 0.965]<br/>class = big biking day>, fillcolor="#40a1e6"] ;
+2 -> 4 ;
+5 [label=<node &#35;5<br/>t2 &le; 18.75<br/>gini = 0.346<br/>samples = 13.6%<br/>value = [0.222, 0.778]<br/>class = big biking day>, fillcolor="#72b9ec"] ;
+1 -> 5 ;
+6 [label=<node &#35;6<br/>gini = 0.387<br/>samples = 11.1%<br/>value = [0.262, 0.738]<br/>class = big biking day>, fillcolor="#7fc0ee"] ;
+5 -> 6 ;
+7 [label=<node &#35;7<br/>gini = 0.083<br/>samples = 2.5%<br/>value = [0.043, 0.957]<br/>class = big biking day>, fillcolor="#42a1e6"] ;
+5 -> 7 ;
+8 [label=<node &#35;8<br/>hum &le; 80.75<br/>gini = 0.487<br/>samples = 68.2%<br/>value = [0.581, 0.419]<br/>class = not many bikes>, fillcolor="#f8dcc8"] ;
+0 -> 8 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+9 [label=<node &#35;9<br/>weather_code &le; 1.5<br/>gini = 0.498<br/>samples = 34.2%<br/>value = [0.472, 0.528]<br/>class = big biking day>, fillcolor="#eaf5fc"] ;
+8 -> 9 ;
+10 [label=<node &#35;10<br/>gini = 0.476<br/>samples = 12.4%<br/>value = [0.611, 0.389]<br/>class = not many bikes>, fillcolor="#f6d1b7"] ;
+9 -> 10 ;
+11 [label=<node &#35;11<br/>gini = 0.477<br/>samples = 21.8%<br/>value = [0.393, 0.607]<br/>class = big biking day>, fillcolor="#b9ddf6"] ;
+9 -> 11 ;
+12 [label=<node &#35;12<br/>t2 &le; 6.75<br/>gini = 0.427<br/>samples = 34.0%<br/>value = [0.691, 0.309]<br/>class = not many bikes>, fillcolor="#f1b992"] ;
+8 -> 12 ;
+13 [label=<node &#35;13<br/>gini = 0.353<br/>samples = 12.4%<br/>value = [0.771, 0.229]<br/>class = not many bikes>, fillcolor="#eda674"] ;
+12 -> 13 ;
+14 [label=<node &#35;14<br/>gini = 0.458<br/>samples = 21.6%<br/>value = [0.644, 0.356]<br/>class = not many bikes>, fillcolor="#f3c7a6"] ;
+12 -> 14 ;
+}
