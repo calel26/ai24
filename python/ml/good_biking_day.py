@@ -46,7 +46,7 @@ df["is_day_off"] = is_day_off
 
 # Define features and target variables
 # t2 = feels like
-feature_names = ["is_day_off", "wind_speed", "hum", "t2", "weather_code","season"]
+feature_names = ["is_day_off", "wind_speed", "hum", "t2", "weather_code", "season"]
 X = df[feature_names]  # the X axis is equal to columns in featured_names
 y = above
 
